@@ -1,0 +1,33 @@
+{% extends 'app/base.html' %}
+{% block title %}Welcome!-IBLOG  Community 📝📝{% endblock %} 
+{% load static %}
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <div class="co-sm-10">
+            <h3 class="text-dark my-5">Login Page</h3>
+            <form action="" method="post"  novalidate>
+                {% csrf_token %}
+                {% for fm in form %}
+                <div class="">
+                    {{fm.label_tag}} {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
+                {% endfor %} <br>
+                <input type="submit" value="Login" class="btn btn-success"  >
+               
+                    <a class="btn btn-primary mx-2"  href="{% url 'signup' %}">Signup</a>
+                  
+                {% if form.non_field_errors %}
+                  {% for error in form.non_field_errors %}
+                  <p class="alert alert-danger my-3 ">{{error}}</p>
+                  {% endfor %}
+                  {% endif %}
+            </form>
+        <br>
+          
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}

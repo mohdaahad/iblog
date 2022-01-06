@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="container ">
+    <div class="row">
+        <div class="co-sm-10">
+            <h3 class="text-dark my-5">Signup Now</h3>
+            {% if messages %}
+            {% for message in messages %}
+            <p {% if massage.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p> {% endfor %}
+            {% endif %}
+        <form action="" method="post"  novalidate>
+            {% csrf_token %}
+            {% for fm in form %}
+            <div class="">
+            {{fm.label_tag}} {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
+            {% endfor %} <br>
+            <input style="margin-bottom: 22px;" type="submit" value="Submit" class="btn btn-primary"  >
+            {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+              <p class="alert alert-danger my-3 ">{{error}}</p>
+              {% endfor %}
+              {% endif %}
+        </form>
+        </div>
+        
+    </div>
+</div>
+
+
+{% endblock body %}

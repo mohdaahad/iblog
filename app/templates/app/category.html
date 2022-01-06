@@ -1,0 +1,90 @@
+
+{% extends "app/base.html" %}
+{% block title %}Categroy-IBLOGS Community 📝📝{% endblock %}
+{% load static %}
+{% block  body %}
+<div class="cantanier">
+  
+    <div class="col-sm-12 px-3 mt-2">
+            
+        <div class="card shadow  ">
+            <div class="card-header bg-success mb-2">
+            </div>
+            <div class="px-3"><a class="btn btn-outline-success  float-start " href="">{{cat.title}}</a></div>
+            <p class="px-3">{{cat.description}}</p>
+          <div class=" d-flex justify-content-between">
+              <div class="px-3"><a class="btn btn-secondary float-start " href="">Follow</a></div>
+              <div class=""> <img src="{% static 'app/img/django.png' %}" style="width: 80px;" alt=""></div>
+          </div>
+           
+          </div>
+    </div>
+
+      <div class="row px-3 d-flex  py-5 ">
+ 
+    <div class="col-sm-2 mx-3 ">
+       
+        <p  class="fw-bold">submission guidelines</p>
+        <p class="small">Client-side, server-side, it doesn't matter. This tag should be used for anything JavaScript focused. If the topic is about a <b>JavaScript</b> framework or library, just remember to include the framework's tag as well.</p>
+       
+       
+        <a class="btn btn-primary" href="">Create Post</a>
+        
+        <hr>
+        <p class="text-muted">5 Posts Published</p>
+        <hr>
+        <p class="text-muted">Older #javascript posts
+        </p>
+        <a href="">1  </a><a href="">2   </a><a href="">3  </a>... <a href="">      5</a>
+    </div>
+  <div class="col-sm-7 mx-2">
+    {% for p in posts %}
+    <div class="card mb-2">
+       <div class="card-body">
+     
+        <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+            <b class="">Aahad Rahi</b>
+            <small class="float-end mx-5">4 Jan 2022, Mangalwar</small>
+        </div>
+      
+
+           <div class="card-text px-5 ">
+           
+              <a class="nav-link link-dark" href="/app/{{p.url}}">{{p.title}}</a>
+               <pre><span class="text-info">#</span>python  <span class="text-danger">#</span>forpage</pre>
+              <div class="row">
+                  <div class="col"><span class=""> <i  style="font-size:24px" class="fa">&#xf087;</i> 111</span></div>
+                  <div class="col"><span class=""><i style="font-size:24px" class="fa ">&#xf0e5;</i> 45 </span></div>
+                  <div class="col "> <button class="ms-2 btn btn-outline-dark float-end">Save</button></div>
+
+              </div>
+              
+           
+          
+           </div>
+       </div>
+    </div>
+    {% empty %}
+    {% endfor %}
+   
+    
+</div>
+<div class="col-sm-2">
+    <p class="fw-bold">#discuss</p>
+  <div class="px-2">
+      <a class="btn" href="">How do you create a Redux store for Login functionality?</a>
+<hr>
+<p class="fw-bold">trending guides/resources</p>
+
+<a class="btn" href="">5 GitHub Repositories for learning developers...</a>
+<a class="btn" href="">🔥🤯 Amazing Portfolio website using HTML, CSS and JS.</a>
+</div>
+</div>
+</div>
+ </div>
+</div>
+</div>
+</div> 
+{% endblock body %}
+
+

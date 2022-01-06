@@ -1,0 +1,95 @@
+{% extends "app/base.html" %}
+{% block title %} IBLOGS Post 📝📝{% endblock %} 
+{% load static %}
+{% block  body %}
+
+
+    <div class="row py-2 px-3">
+        <div class="col-sm-1">
+           
+            <div class="p-4">
+                <i style="font-size:24px" class="fa">&#xf08a;</i>
+                <p>34</p>
+
+                <i style="font-size:24px" class="fa">&#xf097;</i>
+               <p>3</p>
+
+
+
+                <i style="font-size:24px" class="fa">&#xf141;</i>
+            </div>
+        </div>
+        <div class="col-sm-8">
+           
+           <div class="card shadow">
+               <img class="rounded" src="{% static 'app/img/my.jpeg' %}" alt="">
+
+               <div class="p-5 py-4">
+                <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+                    <b class="">Aahad Rahi</b>
+                    <small class="float-end mx-5">4 Jan 2022</small>
+                </div>  
+                <h1 class="py-2">{{post.title}}</h1>
+                <pre><span class="text-info">#</span>python  <span class="text-danger">#</span>forpage</pre>
+                <p> {{post.cat.title}} </p>
+               </div>
+
+               <hr>
+
+            <div class="p-5 py-4">
+                <h4>Discussion (3)</h4>
+              
+               
+                  <form>
+                    <div class="form-group">
+
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                      </div>
+              </form>
+            <div class="d-flex py-4  justify-content-center">
+                <a class="btn" href="{% url 'report' %}"> Report abuse</a>
+            </div>
+            </div>
+
+              
+           </div>
+ <div class=" py-4">
+    <div class="card py-5 shadow ">
+        <div class="p-5 py-4">
+<h2>Read next</h2>
+
+<div class="row py-3"> <span class=""> <img src="{% static 'app/img/2.jpeg' %}" class="rounded-circle " style="width: 40px;" alt="">
+    <b class="">the baset java programming language</b>
+    <small class="float-end mx-5">4 Jan 2022</small>
+</div>   <div class="row pb-3"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+    <b class="">Lorem ipsum dolor sit.</b>
+    <small class="float-end mx-5">8 jul 2022</small>
+</div>   <div class="row pb-3"> <span class=""> <img src="{% static 'app/img/1.jpeg' %}" class="rounded-circle " style="width: 40px;" alt="">
+   
+    <small class="float-end mx-5">23 des 2022</small>
+</div>  
+ </div>
+ </div></div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card">
+            <div class="card-header bg-dark mb-2">
+
+            </div>
+            <div class="p-3">
+             <img src="{% static 'app/img/1.jpeg' %}" class="rounded " style="width: 40px;" alt=""> <b class="">Aahad Rahi</b>
+             <div class="d-grid gap-2 py-2"><a class="btn btn-primary" href="">Follow</a></div>
+             <p class="text-muted">The hardworking team behind dev.to ❤️</p>
+             <p class="text-muted">Want to contribute to open source and help make the DEV community stronger?
+
+                The code that powers DEV is called <b>Forem</b> and is freely available on GitHub.
+                
+                You're welcome to jump in!</p>
+         </div>
+          </div>
+        </div>
+    </div>
+  
+ 
+  
+{% endblock body %}
