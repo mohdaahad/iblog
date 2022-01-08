@@ -9,7 +9,7 @@ function get_random_color() {
 
 // document.getElementsByClassName('bg-custom').style.backgroundColor = get_random_color()
 $(document).ready($(".bg-custom ").each(function() {
-    $(this).css("background-color", get_random_color());
+    $(this).css("color", get_random_color());
 }))
 
 // $(function() {

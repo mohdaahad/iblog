@@ -56,15 +56,17 @@
                 {% for cat in cats %}
               <a class="dropdown-item" href="/category/{{cat.url}}">{{cat.title}}</a>
               {% endfor %}
-                <li><a  class="dropdown-item " href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+               
               </ul>
           </li>
           </ul>
           <div class="d-flex">
+            {% if not request.user.is_authenticated  %}
             <a class="btn btn-outline-danger  " href="{% url 'login' %}"><img src="{% static 'app/img/user.svg' %}" alt="">Sign In/Up</a>
+            {% endif %}
+            {% if  request.user.is_authenticated  %}
             <a class="btn btn-outline-warning ms-2" href="{% url 'logout' %}"><img src="{% static 'app/img/logout.svg' %}" alt=""> Logout</a>
+            {% endif %}
           </div>
            </div>
         

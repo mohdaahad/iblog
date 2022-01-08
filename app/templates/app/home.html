@@ -43,17 +43,18 @@
              
                 <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
                     <b class="">Aahad Rahi</b>
-                    <small class="float-end mx-5">4 Jan 2022</small>
+                    <small class="float-end mx-5">{{p.0.add_date}}</small>
                 </div>
               
 
                    <div class="card-text px-5 ">
                    
-                      <a class="nav-link link-dark"  href="/app/{{p.url}}"> {{p.title}}</a>
-                       <pre><span class="text-info">#</span>python  <span class="text-danger">#</span>forpage</pre>
+                      <a class="nav-link link-dark"  href="/app/{{p.0.url}}"><h3> {{p.0.title}}</h3></a>
+                       <pre><span class="text-info">#</span>{{p.0.cat}}</pre>
                       <div class="row">
-                          <div class="col"><span class=""> <i  style="font-size:24px" class="fa">&#xf087;</i> 111</span></div>
-                          <div class="col"><span class=""><i style="font-size:24px" class="fa ">&#xf0e5;</i> 45 </span></div>
+                        
+                        <div class="col"><span class=""><a class="nav-link link-dark"  href="/app/{{p.0.url}}"> <i  style="font-size:24px" class="fa">&#xf087;</i> {{p.1.count}} reactions</a></span></div>
+                        <div class="col"><span class=""><a class="nav-link link-dark"  href="/app/{{p.0.url}}"><i style="font-size:24px" class="fa ">&#xf0e5;</i>  {{p.2.count}} Comments</a></span></div>
                           <div class="col "> <button class="ms-2 btn btn-outline-dark float-end">Save</button></div>
 
                       </div>
@@ -70,5 +71,6 @@
        </div>
     </div>
 </div>
+
 <script src="{% static 'app/js/js.js' %}"></script>
 {% endblock body %}  

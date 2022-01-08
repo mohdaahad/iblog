@@ -59,7 +59,8 @@ class Post(models.Model):
     url=models.CharField(max_length=100)
     cat=models.ForeignKey(Category, on_delete=models.CASCADE)
     image=models.ImageField(upload_to='Post/')   
-
+    add_date =models.DateField(auto_now_add=True,null=True)
+ 
     def __str__(self):
         return self.title
 
@@ -87,8 +88,12 @@ class activity(models.Model):
     class Meta:
         ordering = ['created_on']
 
+        verbose_name = 'Activity'
+        verbose_name_plural = 'Activities'
+
     def __str__(self):
         return 'Comment {} by {}'.format(self.comments, self.name)
+        
    
 
   

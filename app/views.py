@@ -4,28 +4,24 @@
 
 
 from django.shortcuts import render
-from .models import Category, Post
-from .form import SignUpForm, loginForm
+from .models import Category, Post,activity
+from .form import SignUpForm, loginForm, CommentForm
 from django.contrib.auth import authenticate,login,logout
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
 from django.core.paginator import Paginator
+
 # Create your views here.
 def home(request):
-     posts=Post.objects.all()[:11]
-     cat=Category.objects.all()
-    #  print("*************",cat[0].color)
-     data ={
+    posts=Post.objects.all()[:11]
+    cat=Category.objects.all()
+    list_of_tuples = [(p,p.comments.filter(likes=1),p.comments.filter(active=True)) for p in posts]
+    data ={
          'cats':cat,
-          'posts':posts
-     }
-     return  render(request,'app/home.html',data)
-
-def post(request,url):
-     post=Post.objects.get(url=url)
-     cat=Category.objects.all()
-     return render(request,'app/post.html',{'post':post ,'cats':cat})
-
+          'posts':list_of_tuples,
+               }
+    return  render(request,'app/home.html',data)
+  
 
 def category(request,url):
      cats=Category.objects.all()
@@ -36,6 +32,8 @@ def category(request,url):
 
 
 def user_login(request):
+    posts=Post.objects.all()[:11]
+    cat=Category.objects.all()
     if not request.user.is_authenticated:
         if request.method == "POST":
             form = loginForm(request=request,data=request.POST)
@@ -49,13 +47,14 @@ def user_login(request):
                     return HttpResponseRedirect('/about/')
         else:            
            form = loginForm()
-        return render(request,'app/login.html' ,{'form':form})
+        return render(request,'app/login.html' ,{'form':form ,'post':posts ,'cats':cat})
     else:
         return HttpResponseRedirect('/about/') 
     
 
 def signup(request):
-  
+    posts=Post.objects.all()[:11]
+    cat=Category.objects.all()
     if request.method == "POST":
         form=SignUpForm(request.POST)    
         if form.is_valid():
@@ -64,19 +63,55 @@ def signup(request):
             return HttpResponseRedirect('/about/')
     else:        
         form=SignUpForm()
-    return render(request,'app/signup.html' ,{'form':form})
+    return render(request,'app/signup.html' ,{'form':form ,'post':posts ,'cats':cat})
 
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect('/')        
 
 def about(request):
-    return render(request, 'app/about.html')
+    posts=Post.objects.all()[:11]
+    cat=Category.objects.all()
+    return render(request, 'app/about.html' ,{'post':posts ,'cats':cat})
 
 def report(request):
-    return render(request, 'app/reportabuse.html')
+    posts=Post.objects.all()[:11]
+    cat=Category.objects.all()
+    return render(request, 'app/reportabuse.html' ,{'post':posts ,'cats':cat})
+   
 
 
 
 def contacts(request):
-    return render(request, 'app/contacts.html')
+    posts=Post.objects.all()[:11]
+    cat=Category.objects.all()
+    return render(request, 'app/contacts.html' ,{'post':posts ,'cats':cat})
+
+
+def post(request,url):
+    post=Post.objects.get(url=url)
+    cat=Category.objects.all()
+    comments = post.comments.filter(active=True)
+    likes= post.comments.filter(likes=1)
+    new_comment = None
+    # Comment posted
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.post = post
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+   
+    return render(request,'app/post.html',{
+                            'post':post ,'cats':cat,
+                            'comments': comments,
+                            'likes':likes,
+                            'new_comment': new_comment,
+                            'comment_form': comment_form })
+                            
