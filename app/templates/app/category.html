@@ -3,30 +3,38 @@
 {% block title %}Categroy-IBLOGS Community 📝📝{% endblock %}
 {% load static %}
 {% block  body %}
-<div class="cantanier">
+<div class="">
   
-    <div class="col-sm-12 px-3 mt-2">
+    <div class="col-sm-12 px-sm-3 pt-2   " >
             
-        <div class="card shadow  ">
-            <div class="card-header bg-success mb-2">
+        <div class="card shadow" style="border-radius: 9px;">
+            <div class="card-header bg-success  mb-2" style="border-radius: 10px 10px 0px 0px;">
             </div>
-            <div class="px-3"><a class="btn btn-outline-success  float-start " href="">{{cat.title}}</a></div>
-            <p class="px-3">{{cat.description}}</p>
-          <div class=" d-flex justify-content-between">
-              <div class="px-3"><a class="btn btn-secondary float-start " href="">Follow</a></div>
-              <div class=""> <img src="{% static 'app/img/django.png' %}" style="width: 80px;" alt=""></div>
-          </div>
+            
+            <div class="containe1 ">
+              <div class="float-start">
+                <img src="{% static 'app/img/django.png' %}"  style="width: 100px;" class="p-0" alt="">
+                <span class="display-6 bold ">{{cat.title}}</span>
+            </div>
+              <div class=" mt-3  "></div>
+            <div class="float-end "><a class="btn btn-primary Follow " href="">Follow</a></div>
+            </div>
+            <div class="text-truncate-tag "><p class="mx-3 " >{{cat.description}}</p></div>
+           
+         
            
           </div>
     </div>
 
-      <div class="row px-3 d-flex  py-5 ">
+      <div class="row px-sm-3 d-flex  py-5 ">
  
-    <div class="col-sm-2 mx-3 ">
+    <div class="col-sm-2 mx-3 mb-2 ">
        
-        <p  class="fw-bold">submission guidelines</p>
-        <p class="small">Client-side, server-side, it doesn't matter. This tag should be used for anything JavaScript focused. If the topic is about a <b>JavaScript</b> framework or library, just remember to include the framework's tag as well.</p>
+        <div class="">
+          <p  class="fw-bold">submission guidelines</p>
+        <p class="text-justify">Client-side, server-side, it doesn't matter. This tag should be used for anything JavaScript focused. If the topic is about a <b>{{cat.title}}</b> framework or library, just remember to include the framework's tag as well.</p>
        
+        </div>
        
         <a class="btn btn-primary" href="">Create Post</a>
         
@@ -44,20 +52,20 @@
      
         <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
             <b class="">Aahad Rahi</b>
-            <small class="float-end mx-5">{{p.add_date}}</small>
+            <small class="float-end mx-5 pt-2">{{p.add_date}}</small>
         </div>
       
 
            <div class="card-text px-5 ">
            
-              <a class="nav-link link-dark" href="/app/{{p.url}}">{{p.title}}</a>
+              <a class="nav-link link-dark p-0 m-0 " href="/app/{{p.url}}"><h3 class="m-0 p-0 py-2">{{p.title}}</h3></a>
               <pre><span class="text-info">#</span>{{p.cat}}</pre>
               <div class="row">
-                  <div class="col"><span class=""> <i  style="font-size:24px" class="fa">&#xf087;</i> 111</span></div>
-                  <div class="col"><span class=""><i style="font-size:24px" class="fa ">&#xf0e5;</i> 45 </span></div>
-                  <div class="col "> <button class="ms-2 btn btn-outline-dark float-end">Save</button></div>
-
-              </div>
+                <div class="col-auto respons p-0"><span class=""><a class="nav-link p-0 link-dark"  href="/app/{{p.0.url}}"> <i  style="font-size:24px" class="fa">&#xf087;</i> {{p.1.count}} reactions</a></span></div>
+                <div class="col-auto respons p-0"><span class=""><a class="nav-link p-0 link-dark"  href="/app/{{p.0.url}}"><i style="font-size:24px" class="fa ">&#xf0e5;</i>  {{p.2.count}} Comments</a></span></div>
+                  <div class="col   p-0 "> <button class="ms-2 btn btn-outline-dark float-end">Save</button></div>
+             
+                </div>
               
            
           

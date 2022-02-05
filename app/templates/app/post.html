@@ -4,15 +4,15 @@
 {% block  body %}
 
 
-    <div class="row py-2 px-3">
-        <div class="col-sm-1">
+    <div class="row py-2 px-sm-3">
+        <div class="col-sm-1 d-none d-sm-block">
            
             <div class="p-4">
                 <i style="font-size:24px" class="fa">&#xf08a;</i>
-               <span> <p>{{ likes.count }}</p></span>
+               <span> <p style="margin-left: 7px;">{{ likes.count }}</p></span>
 
                 <i style="font-size:24px" class="fa">&#xf097;</i>
-               <p>3</p>
+               <p style="margin-left: 3px;">3</p>
 
 
 
@@ -22,18 +22,21 @@
         <div class="col-sm-8">
            
            <div class="card shadow">
-               <img class="rounded" src="{% static 'app/img/my.jpeg' %}" alt="">
+               <img class="rounded" src="{% static 'app/Post/html5.png' %}" alt="">
+          {{post.image}}
+               <!-- <img src="{{post.image}}" class="responsive-img" alt=""> -->
 
-               <div class="p-5 py-4">
+
+               <div class="p-sm-5 p-2 py-4">
                 <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
                     <b class="">Aahad Rahi</b>
-                    <small class="float-end mx-5">4 Jan 2022</small>
+                    <small class="float-end mx-sm-5 pt-2">4 Jan 2022</small>
                 </div>  
                 <h1 class="py-2">{{post.title}}</h1>
-                <pre><span class="text-info">#</span>python  <span class="text-danger">#</span>forpage</pre>
-                <p> {{post.cat.title}} </p>
+                <pre><a href="/category/{{post.cat.url}} " style="text-decoration: none; color: black;"><span class="text-{{post.cat.color}}">#</span>{{post.cat.title}} </span></a></pre>
+                <p>{{post.content | safe }}</p>
                </div>
-
+               
                <hr>
 
             <div class="p-5 py-4">
@@ -43,19 +46,50 @@
                 <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                 <label for="floatingTextarea2">Add to the Discussion</label>
               </div>
+              {% if  request.user.is_authenticated  %}
               <button type="button" class="btn btn-primary mt-2">Submit</button>
+          {% endif %}
 
+          <div class="card-body">
+            {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+              Your comment is awaiting moderation
+            </div>
+            {% else %}
+            <form method="post" style="margin-top: 1.3em;">
+              {{ comment_form.as_p }}
+              {% csrf_token %}
+              {% if  request.user.is_authenticated  %} 
+              <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+              {% endif %}
+
+            </form>
+            {% endif %}
+          </div>
                 <!-- listing comments -->
+
                 {% for comment in comments %}
+                <div class="card  my-3  ">
                 <div class="comments" style="padding: 10px;">
-                  <p class="font-weight-bold">
-                    {{ comment.name }}
-                    <span class=" text-muted font-weight-normal">
-                      {{ comment.created_on }}
-                    </span>
-                  </p>
-                  {{ comment.body | linebreaks }}
+                 <div class="d-flex"> 
+                   <div class=""><span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt=""></span></div>
+                  <div class="m-2"><p class="font-weight-bold ">
+                    <b>{{ comment.name }}</b>
+                     <span class=" text-muted font-weight-normal">
+                       . {{ comment.created_on|date:'M-d' }}
+                     </span>
+                   </p></div>
+                </div>  
+                 <p class="m-2">
+                  {{ comment.comments | linebreaks }}
+                 </p>
                 </div>
+              </div>
+              
+                
+              <div class="mx-4 d-flex"> <p><i class="fa">&#xf08a;</i>  {{ likes.count }} like </p>
+              <p class="mx-4"><i style="font-size:18px" class="fa ">&#xf0e5;</i> Reply</p></div>
+             
                 {% endfor %}
 
             <div class="d-flex py-4  justify-content-center">
@@ -100,7 +134,24 @@
          </div>
           </div>
         </div>
+
+        
     </div>
+
+
+
+        <div class="shadow p-3 fixed-bottom bg-body rounded d-sm-none d-block">
+        <div class="d-inline-block mx-3 "><i style="font-size:24px ; margin-right: 6px;" class="fa">&#xf08a; <span class="mx-2">  {{ likes.count }}</span></i>
+          
+            </div>
+            <div class="d-inline-block mx-5   "><i style="font-size:24px" class="fa">&#xf097;  <span class="mx-2"> 3</span></i>
+               </div>
+            <div class="d-inline-block mx-3     "> <i style="font-size:24px" class="fa">&#xf141;</i>
+                </div>  
+              
+        </div>
+    
+    
   
  
   

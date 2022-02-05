@@ -12,15 +12,16 @@ class SignUpForm(UserCreationForm):
         fields=['username','first_name','last_name','email',]
         labels ={'first_name':  'Fast Name','last_name':'Last Name','email':'Email'}
         widgets={'username':forms.TextInput(attrs={'class':'form-control'}),'first_name':forms.TextInput(attrs={'class':'form-control'}),'last_name':forms.TextInput(attrs={'class':'form-control'}),'email':forms.EmailInput(attrs={'class':'form-control'}), }
-
+        
 class loginForm(AuthenticationForm):
   username = UsernameField(widget=forms.TextInput(attrs={'autofocus':True,'class':'form-control'}))
   password = forms.CharField(label=_("Password"),strip=False ,widget=forms.PasswordInput(attrs={ 'class':'form-control','autocomplete':'current-password'}))
-
+ 
 
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = activity
-        fields = ('name', 'email', 'comments')  
+        fields = ('name', 'email', 'comments' ,"likes")  
+        

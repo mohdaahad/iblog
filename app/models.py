@@ -1,7 +1,9 @@
+from cProfile import label
 from django.db import models
 from django.utils.html import format_html
 import uuid
 from PIL import Image
+from tinymce.models import HTMLField
 from io import BytesIO
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -30,6 +32,7 @@ class Category(models.Model,ResizeImageMixin):
         ('warning','Yellow'),
          ('info','Sky Blue'),
          ('secondary ','Grey'),
+         ('primary','Blue'),
        ]
     cat_id=models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
@@ -55,10 +58,10 @@ class Category(models.Model,ResizeImageMixin):
 class Post(models.Model):
     post_id=models.AutoField(primary_key=True)
     title=models.CharField(max_length=200)
-    content = models.TextField()
+    content = HTMLField()
     url=models.CharField(max_length=100)
     cat=models.ForeignKey(Category, on_delete=models.CASCADE)
-    image=models.ImageField(upload_to='Post/')   
+    image=models.ImageField(upload_to='app/Post/')   
     add_date =models.DateField(auto_now_add=True,null=True)
  
     def __str__(self):
@@ -78,13 +81,13 @@ class Post(models.Model):
 
 class activity(models.Model):
     activity_id=models.AutoField(primary_key=True)
-    likes=models.IntegerField()
-    comments = models.TextField()
+    comments = models.TextField(blank=True)
+    likes=models.IntegerField(default=0)
     post=models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
     created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
     class Meta:
         ordering = ['created_on']
 
@@ -95,5 +98,17 @@ class activity(models.Model):
         return 'Comment {} by {}'.format(self.comments, self.name)
         
    
+# class Comment(models.Model):
+#     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+#     name = models.CharField(max_length=80)
+#     email = models.EmailField()
+#     body = models.TextField()
+#     created_on = models.DateTimeField(auto_now_add=True)
+#     active = models.BooleanField(default=False)
 
+#     class Meta:
+#         ordering = ['created_on']
+
+#     def __str__(self):
+#         return 'Comment {} by {}'.format(self.body, self.name)
   

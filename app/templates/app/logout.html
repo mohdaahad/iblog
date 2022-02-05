@@ -1,0 +1,15 @@
+{% extends "app/base.html" %}
+{% block title %}Confirm Signout-IBLOGS Community 📝📝{% endblock %}
+{% load static %}
+{% block  body %}
+<div class="singout" >
+    <div class="d-flex justify-content-center">  
+        <h4>Are you sure you want to sign out?</h4>
+        <br>
+       
+    </div>
+   <div class="d-flex justify-content-center"> <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Yes,sign out </a></div>
+    
+   
+</div>
+{% endblock body %}

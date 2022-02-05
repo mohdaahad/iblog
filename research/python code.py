@@ -25,4 +25,20 @@ def post_detail(request, slug):
                                            'comment_form': comment_form})    
 
 
-                                           
+ <a href=""><i class="material-icons">&#xe7f4;</i></a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+              </a><ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for cat in cats %}
+              <a class="dropdown-item" href="/category/{{cat.url}}">{{cat.title}}</a>
+              {% endfor %}
+               
+              </ul>
+          </li>
+
+
+
+<div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+</div>
