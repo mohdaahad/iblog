@@ -1,4 +1,6 @@
-from cProfile import label
+
+from re import T
+import black
 from django.db import models
 from django.utils.html import format_html
 import uuid
@@ -7,6 +9,7 @@ from tinymce.models import HTMLField
 from io import BytesIO
 from django.core.files import File
 from django.core.files.base import ContentFile
+from django.contrib.auth.models import User
 # Create your models here.
 class ResizeImageMixin:
     def resize(self, imageField: models.ImageField, size:tuple):
@@ -28,87 +31,109 @@ class Category(models.Model,ResizeImageMixin):
         ('success','Green '),
         ('danger','Red'),
         ('dark','Black'),
-        ('light','Light'),
         ('warning','Yellow'),
          ('info','Sky Blue'),
-         ('secondary ','Grey'),
          ('primary','Blue'),
        ]
-    cat_id=models.AutoField(primary_key=True)
+    # cat_id=models.AutoField(primary_key=True)
+    user_id=models.ForeignKey(User, on_delete=models.CASCADE,related_name='category')
     title = models.CharField(max_length=100)
     color=models.CharField(max_length=32,choices=CHOICES,default='Black' ,verbose_name="Chuse categry color")
     description=models.TextField()
     url=models.CharField(max_length=100)
-    image=models.ImageField(upload_to='category/')
-    add_date =models.DateField(auto_now_add=True,null=True)
+    # image=models.ImageField(upload_to='category/')
+    created_date =models.DateField(auto_now_add=True,null=True)
+    updated_date =models.DateField(auto_now=True)
+    Created_by = models.TextField(max_length=200,blank=True)
+    updated_by = models.TextField(max_length=200,blank=True)
+   
+    class Meta:
+        ordering = ['title']
  
-    def save(self, *args, **kwargs):
-        if self.image:
-           
-            self.resize(self.image, (300, 200))
-         
-         
-        super(Category, self).save(*args, **kwargs)
-
-    def image_tag(self):
-        return format_html('<img src="/media/{}" style="width:40px;height:40px;border-radius:50%;" /> ' .format(self.image))
+    
+    # def image_tag(self):
+    #     return format_html('<img src="/media/{}" style="width:40px;height:40px;border-radius:50%;" /> ' .format(self.image))
     def __str__(self):
         return self.title
+   
 
 class Post(models.Model):
-    post_id=models.AutoField(primary_key=True)
+    user_id=models.ForeignKey(User, on_delete=models.CASCADE,related_name='post', )
+    # post_id=models.AutoField(primary_key=True)
     title=models.CharField(max_length=200)
     content = HTMLField()
-    url=models.CharField(max_length=100)
-    cat=models.ForeignKey(Category, on_delete=models.CASCADE)
-    image=models.ImageField(upload_to='app/Post/')   
-    add_date =models.DateField(auto_now_add=True,null=True)
+    category=models.ManyToManyField(Category )
+    image=models.ImageField(upload_to='app/Post/')
+    created_date =models.DateField(auto_now_add=True,null=True)
+    updated_date =models.DateField(auto_now=True)
+    Created_by = models.CharField(max_length=200,blank=True)
+    updated_by = models.CharField(max_length=200,blank=True)
+    # likes=models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, related_name='blogpost_like',blank=True)
+
+    def number_of_likes(self):
+        return self.likes.count()
+    
+    class Meta:
+        ordering = ['title']
  
     def __str__(self):
-        return self.title
+        return self.title 
 
-# class PostContent(models.Model):
-    # content_id=models.AutoField(primary_key=True)
-    # title=models.CharField(max_length=200)
-    # content = models.TextField()
 
-    # url=models.CharField(max_length=100)
-    # post=models.ForeignKey(Post, on_delete=models.CASCADE)
-    # image=models.ImageField(upload_to='Post/')
-
-#post mode
 
 
 class activity(models.Model):
-    activity_id=models.AutoField(primary_key=True)
-    comments = models.TextField(blank=True)
+    # activity_id=models.AutoField(primary_key=True)
+    user_id=models.ForeignKey(User, on_delete=models.CASCADE,related_name='activity')
     likes=models.IntegerField(default=0)
-    post=models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
-    name = models.CharField(max_length=80)
-    email = models.EmailField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    active = models.BooleanField(default=True)
+    post=models.ForeignKey(Post, on_delete=models.CASCADE,related_name='activity')
+   
+    created_date =models.DateField(auto_now_add=True,null=True)
+    updated_date =models.DateField(auto_now=True)
+    Created_by = models.CharField(max_length=200,blank=True)
+    updated_by = models.CharField(max_length=200,blank=True)
     class Meta:
-        ordering = ['created_on']
+        ordering = ['created_date']
 
         verbose_name = 'Activity'
         verbose_name_plural = 'Activities'
 
     def __str__(self):
-        return 'Comment {} by {}'.format(self.comments, self.name)
-        
+        return f'like on {self.post.title}'
    
-# class Comment(models.Model):
-#     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
-#     name = models.CharField(max_length=80)
-#     email = models.EmailField()
-#     body = models.TextField()
-#     created_on = models.DateTimeField(auto_now_add=True)
-#     active = models.BooleanField(default=False)
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comment')
+    # user_id=models.ForeignKey(User, on_delete=models.CASCADE,related_name='comment')
+    name = models.CharField(max_length=80)
+    # email = models.EmailField()
+    text = models.TextField()
+    # created_on = models.DateTimeField(auto_now_add=True)
+    # active = models.BooleanField(default=False)
+    created_date =models.DateField(auto_now_add=True,null=True)
+    updated_date =models.DateField(auto_now=True)
+    Created_by = models.CharField(max_length=200,blank=True)
+    updated_by = models.CharField(max_length=200,blank=True)
 
-#     class Meta:
-#         ordering = ['created_on']
+    class Meta:
+        ordering = ['created_date']
 
-#     def __str__(self):
-#         return 'Comment {} by {}'.format(self.body, self.name)
-  
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.text, self.name)
+
+
+
+
+class User_Additional_detail(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    # save=models.ForeignKey(Post)
+    # User_type=models.(Category)
+    # followed_user=models.ForeignKey(User)
+    # followed_cat=models.ManyToManyField(default=0)
+    # author = models.ForeignKey(User)
+
+    # class Meta:
+    #     ordering = ['id']
+    def __str__(self):
+        return self.id
+   

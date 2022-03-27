@@ -4,155 +4,217 @@
 {% block  body %}
 
 
-    <div class="row py-2 px-sm-3">
-        <div class="col-sm-1 d-none d-sm-block">
+    <div class="row containe py-2 px-sm-3">
+        <div class="col-sm-1 d-none d-sm-block  ">
            
-            <div class="p-4">
-                <i style="font-size:24px" class="fa">&#xf08a;</i>
-               <span> <p style="margin-left: 7px;">{{ likes.count }}</p></span>
+            <div class="p-4 " style="position:fixed;">
+              {% if not request.user.is_authenticated  %}
+              <a  data-bs-toggle="modal" href="#exampleModalToggle"><i class="fa-regular fa-heart"></i></a>
+              </span>
+              {% endif %}
+              {% if request.user.is_authenticated  %}
+              <span class="heart {{likeClass}}"><i class="{{fa_class}} fa-heart"></i>
+               </span>
+              {% endif %}
 
-                <i style="font-size:24px" class="fa">&#xf097;</i>
+               <span><p style="margin-left: auto;"  class="likecount">{{post.likes.count}}</p></span>
+             
+             
+               <i style="font-size:24px" class="fa-regular fa-bookmark"></i>
                <p style="margin-left: 3px;">3</p>
 
-
-
-                <i style="font-size:24px" class="fa">&#xf141;</i>
+               <i style="font-size:24px"  class="fa fa-ellipsis-h" aria-hidden="true"></i>
+          
             </div>
         </div>
         <div class="col-sm-8">
            
-           <div class="card shadow">
-               <img class="rounded" src="{% static 'app/Post/html5.png' %}" alt="">
-          {{post.image}}
+           <div class="card body2 shadow">
+               <!-- <img class="rounded" src="{% static '{{post.image}}' %}" alt=""> -->
+            
                <!-- <img src="{{post.image}}" class="responsive-img" alt=""> -->
+
+
+               <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered " >
+                  <div class="modal-content px-3"style="border-radius: 15px;">
+                    <div class="modal-header">
+                      <h4 class="modal-title fw-bold" id="exampleModalToggleLabel">Log in to continue</h4>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="mx-3 mt-2" >
+                      <img style="width: 75px; margin-bottom: 8px ;    transform: rotate(
+                        -10deg) " src="{% static 'app/img/blog1.svg' %}" alt="">
+
+                    </div>
+                    <div class="modal-body text-muted">
+                      We're a place where coders share, stay up-to-date and grow their careers.
+                    
+                    </div>
+                    <div class="d-grid gap-2 mx-5 mb-2">
+                      <a href="{% url 'login' %}" class="btn btn-primary " style="color: #fff !important; background-color: #3b49df !important;">Log in </a>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                      <a href="{% url 'signup' %}" class="text-center button mx-3 mb-2 py-2" style=" text-decoration:none; color: #3b49df !important;" >Create account</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+             
 
 
                <div class="p-sm-5 p-2 py-4">
                 <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
-                    <b class="">Aahad Rahi</b>
-                    <small class="float-end mx-sm-5 pt-2">4 Jan 2022</small>
+                  <b class=""> {{post.user_id}}</b>
+                    <small class="float-end mx-sm-5 pt-2">{{post.created_date}}</small>
                 </div>  
                 <h1 class="py-2">{{post.title}}</h1>
-                <pre><a href="/category/{{post.cat.url}} " style="text-decoration: none; color: black;"><span class="text-{{post.cat.color}}">#</span>{{post.cat.title}} </span></a></pre>
-                <p>{{post.content | safe }}</p>
+                <span class="d-flex">
+                  {% for area in post.category.all|slice:":3" %}
+                  <pre><a href="/category/{{area.url}} " style="text-decoration: none; color: black;"><span class="text-{{area.color}}">#</span><span>{{ area }} </span></a></pre>   
+                  {% endfor %} 
+                </span><p>{{post.content | safe }}</p>
                </div>
                
                <hr>
 
-            <div class="p-5 py-4">
+            <div class="p-md-5 p-1 py-4">
                 <h4>Discussion ({{ comments.count }})</h4>
                <!-- new comment box -->
-               <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                <label for="floatingTextarea2">Add to the Discussion</label>
-              </div>
-              {% if  request.user.is_authenticated  %}
-              <button type="button" class="btn btn-primary mt-2">Submit</button>
-          {% endif %}
+            
+         
 
-          <div class="card-body">
-            {% if new_comment %}
-            <div class="alert alert-success" role="alert">
-              Your comment is awaiting moderation
-            </div>
-            {% else %}
             <form method="post" style="margin-top: 1.3em;">
-              {{ comment_form.as_p }}
+            
+
+        
+             {{ comment_form.as_p }}
               {% csrf_token %}
               {% if  request.user.is_authenticated  %} 
               <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
               {% endif %}
 
             </form>
-            {% endif %}
+           
+           
+                
+                  
+            
+    
           </div>
                 <!-- listing comments -->
 
                 {% for comment in comments %}
-                <div class="card  my-3  ">
+                <div class="card body2 my-3 ">
                 <div class="comments" style="padding: 10px;">
                  <div class="d-flex"> 
                    <div class=""><span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt=""></span></div>
                   <div class="m-2"><p class="font-weight-bold ">
                     <b>{{ comment.name }}</b>
                      <span class=" text-muted font-weight-normal">
-                       . {{ comment.created_on|date:'M-d' }}
+                       {{ comment.created_date|date:'M-d' }}
                      </span>
                    </p></div>
                 </div>  
-                 <p class="m-2">
-                  {{ comment.comments | linebreaks }}
-                 </p>
+                 <p class="px-sm-5">{{ comment.text }}</p>
                 </div>
               </div>
               
                 
-              <div class="mx-4 d-flex"> <p><i class="fa">&#xf08a;</i>  {{ likes.count }} like </p>
-              <p class="mx-4"><i style="font-size:18px" class="fa ">&#xf0e5;</i> Reply</p></div>
-             
+              
                 {% endfor %}
 
             <div class="d-flex py-4  justify-content-center">
                 <a class="btn" href="{% url 'report' %}"> Report abuse</a>
             </div>
             </div>
-
+            <div class=" py-4">
+              <div class="card body2  py-5 shadow ">
+                  <div class="p-5 py-4">
+          <h2>Read next</h2>
+          
+          <div class="row py-3"> <span class=""> <img src="{% static 'app/img/2.jpeg' %}" class="rounded-circle " style="width: 40px;" alt="">
+              <b class="">the baset java programming language</b>
+              <small class="float-end mx-5">4 Jan 2022</small>
+          </div>   <div class="row pb-3"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+              <b class="">Lorem ipsum dolor sit.</b>
+              <small class="float-end mx-5">8 jul 2022</small>
+          </div>   <div class="row pb-3"> <span class=""> <img src="{% static 'app/img/1.jpeg' %}" class="rounded-circle " style="width: 40px;" alt="">
+             
+              <small class="float-end mx-5">23 des 2022</small>
+          </div>  
+           </div>
+           </div>
+                
+          
+                  
+              </div>
               
            </div>
- <div class=" py-4">
-    <div class="card py-5 shadow ">
-        <div class="p-5 py-4">
-<h2>Read next</h2>
-
-<div class="row py-3"> <span class=""> <img src="{% static 'app/img/2.jpeg' %}" class="rounded-circle " style="width: 40px;" alt="">
-    <b class="">the baset java programming language</b>
-    <small class="float-end mx-5">4 Jan 2022</small>
-</div>   <div class="row pb-3"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
-    <b class="">Lorem ipsum dolor sit.</b>
-    <small class="float-end mx-5">8 jul 2022</small>
-</div>   <div class="row pb-3"> <span class=""> <img src="{% static 'app/img/1.jpeg' %}" class="rounded-circle " style="width: 40px;" alt="">
-   
-    <small class="float-end mx-5">23 des 2022</small>
-</div>  
- </div>
- </div></div>
-        </div>
-        <div class="col-sm-3">
-          <div class="card">
-            <div class="card-header bg-dark mb-2">
-
-            </div>
-            <div class="p-3">
-             <img src="{% static 'app/img/1.jpeg' %}" class="rounded " style="width: 40px;" alt=""> <b class="">Aahad Rahi</b>
-             <div class="d-grid gap-2 py-2"><a class="btn btn-primary" href="">Follow</a></div>
-             <p class="text-muted">The hardworking team behind dev.to ❤️</p>
-             <p class="text-muted">Want to contribute to open source and help make the DEV community stronger?
-
-                The code that powers DEV is called <b>Forem</b> and is freely available on GitHub.
-                
-                You're welcome to jump in!</p>
-         </div>
-          </div>
-        </div>
-
-        
-    </div>
-
-
-
-        <div class="shadow p-3 fixed-bottom bg-body rounded d-sm-none d-block">
-        <div class="d-inline-block mx-3 "><i style="font-size:24px ; margin-right: 6px;" class="fa">&#xf08a; <span class="mx-2">  {{ likes.count }}</span></i>
-          
-            </div>
-            <div class="d-inline-block mx-5   "><i style="font-size:24px" class="fa">&#xf097;  <span class="mx-2"> 3</span></i>
-               </div>
-            <div class="d-inline-block mx-3     "> <i style="font-size:24px" class="fa">&#xf141;</i>
-                </div>  
-              
-        </div>
-    
-    
+           <div class="col-sm-3">
+            <div class="card body2 " style="position: fixed;">
+              <div class="card-header bg-warning mb-2">
   
- 
+              </div>
+              <div class="p-3">
+               <img src="{% static 'app/img/1.jpeg' %}" class="rounded " style="width: 40px;" alt=""> <b class="">{{post.user_id}}</b>
+               <div class="d-grid gap-2 py-2"><a class="btn btn-primary" href="">Follow</a></div>
+               <p class="text-muted">The hardworking team behind dev.to ❤️</p>
+               <p class="text-muted">Want to contribute to open source and help make the DEV community stronger?
+  
+                  The code that powers DEV is called <b>Forem</b> and is freely available on GitHub.
+                  
+                  You're welcome to jump in!</p>
+           </div>
+            </div>
+          </div>
+          <div class="shadow p-3 fixed-bottom body2 rounded d-sm-none d-block">
+          
+            <div class="d-inline-block mx-3 ">
+              {% if not request.user.is_authenticated  %}
+              <a  data-bs-toggle="modal" href="#exampleModalToggle"><i class="fa-regular fa-heart"></i></a>
+          
+              {% endif %}
+              {% if request.user.is_authenticated  %}
+              <span class="heart" class="{{likeClass}}"><i class="{{fa_class}} fa-heart"></i>
+              </span><span class="likecount" style="font-size: 20px; padding-left: 5px;">{{post.likes.count}}</span>
+
+              {% endif %}
+
+              
+                </div>
+                <div class="d-inline-block mx-5   "><i style="font-size:24px" class="fa-regular fa-bookmark"></i><span class="mx-2">3</span>
+                   </div>
+                <div class="d-inline-block mx-3     "> <i style="font-size:24px"  class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </div>  
+                  
+            </div>
+
+
+
+    <script src="{% static 'app/js/jquery.js' %}"></script>
+      
+            <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    
+  <script>$('.heart').click(function(){
+    $.ajax({
+             type: "POST",
+             url: "{% url 'likepost' %}",
+             data: {'post_id':'{{post.id}}','classname':$(this).attr('class'),'csrfmiddlewaretoken': '{{ csrf_token }}'},
+             dataType: "json",
+             success: function(response) {
+           
+              $(".likecount").html(response.like)
+            
+             
+
+
+              }
+
+        });
+
+  })
+  
+  </script>
   
 {% endblock body %}

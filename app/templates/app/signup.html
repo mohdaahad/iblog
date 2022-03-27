@@ -2,26 +2,52 @@
 {% load static %}
 {% block body %}
 
-<div class="container ">
-    <div class="row">
-        <div class="co-sm-10">
-            <h3 class="text-dark my-5">Signup Now</h3>
-            {% if messages %}
-            {% for message in messages %}
-            <p {% if massage.tags %} class="alert alert-{{message.tags}} mb-5" {% endif %}>{{message}}</p> {% endfor %}
-            {% endif %}
-        <form action="" method="post"  novalidate>
+<div class="container containe  ">
+    <div class="row justify-content-center mt-lg-5">
+        <div class="card col-lg-7 p-0 body2 " style=" border-bottom-right-radius:40px ;border-top-left-radius:40px;">
+            <div class="card-header p-3 bg-warning " style="border-top-left-radius:40px; ">
+            </div>
+            <div class="row  ">
+                <div class="col signup">
+                    <a class=""  href="{% url 'signup' %}">Sing Up</a>
+                 </div>
+                <div class="col signup1">
+                    <a class=""  href="{% url 'login' %}">Sign In</a>
+                </div>
+           </div>
+ 
+            <h2 class="text-dark text-center mb-4 font-weight-bold"><b>Welcome to IBLOGS Community</b></h2>
+            <div class="d-grid gap-2 px-5">
+                <a style="margin-bottom: 2px; border-radius: 6px; background-color: #db3236; color: white !important; " class="btn " href=""> <i class='bx bxl-google text-center' style="color: white; font-size: 20px;" ></i> Google</a>
+                <a style="margin-bottom: 2px; border-radius: 6px; background-color: 	#4267B2;   color: white !important; " class="btn " href=""><i class='bx bxl-facebook' style="color: white; font-size: 20px;"></i> Facebook</a>
+                <a style="margin-bottom: 2px; border-radius: 6px; background-color: #0e76a8;  color: white !important;  " class="btn " href=""> <i class='bx bxl-linkedin'style="color: white; font-size: 20px;" ></i> LinkedIn</a>
+                <a style="margin-bottom: 2px; border-radius: 6px; background-color: #171515;  color: white !important; " class="btn  " href=""><i class='bx bxl-github'style="color: white; font-size: 20px;" ></i> GitHub</a>
+            </div>
+            <div class="mx-5 mt-3">
+                <h4 style="width: 100%; 
+                text-align: center; 
+                border-bottom: 1px solid #000; 
+                line-height: 0.1em;
+                margin: 10px 0 20px; "><span style="  background:#fff; 
+            padding:0 10px; ">or</span></h4>
+               </div>
+            <form action="" method="post" class="formbg p-4" novalidate>
+               
+                {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3 ">{{error}}</p>
+                {% endfor %}
+                {% endif %}
             {% csrf_token %}
             {% for fm in form %}
-            <div class="">
-            {{fm.label_tag}} {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
+            <div class="px-4 ">
+                    {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
             {% endfor %} <br>
-            <input style="margin-bottom: 22px;" type="submit" value="Submit" class="btn btn-primary"  >
-            {% if form.non_field_errors %}
-              {% for error in form.non_field_errors %}
-              <p class="alert alert-danger my-3 ">{{error}}</p>
-              {% endfor %}
-              {% endif %}
+            <div class="d-grid gap-2 px-4">
+                <input style="margin-bottom: 22px; border-radius: 6px; " type="submit" value="Submit" class="btn btn-primary "  >
+
+            </div>
+           
         </form>
         </div>
         

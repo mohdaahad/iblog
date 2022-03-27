@@ -12,28 +12,6 @@ $(document).ready($(".bg-custom ").each(function() {
     $(this).css("color", get_random_color());
 }))
 
-// $(function() {
-//     $(".bg-custom").each(function() {
-//         var hue = 'rgb(' + (Math.floor((256-199)*Math.random()) + 200) + ',' + (Math.floor((256-199)*Math.random()) + 200) + ',' + (Math.floor((256-199)*Math.random()) + 200) + ')';
-//          $(this).css("background-color", hue);
-//     });
-// });
-$('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:0,
-    // nav:true,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        },
-        1000:{
-            items:3
-        }
-    }
-})
 
 
 
@@ -52,18 +30,7 @@ const body=document.querySelector("body"),
         }
     
 //js codee to toggle dark and light
-   modeToggle.addEventListener("click",() =>{
-        modeToggle.classList.toggle("active");
-        body.classList.toggle("dark");
-
-        if(!body.classList.contains("dark")){
-            localStorage.setItem("mode","light-mode");
-
-        }
-        else{
-            localStorage.setItem("mode","dark-mode");
-        }
-    }) ;
+    
 //js codee to toggle search box 
 
     searchToggle.addEventListener("click",() =>{
@@ -72,13 +39,58 @@ const body=document.querySelector("body"),
 
 
 //js code to toggle sidebar
-sidebarOpne.addEventListener("click",() =>{
-    nav.classList.add("active");
-}) ;  
+    sidebarOpne.addEventListener("click",() =>{
+        nav.classList.add("active");
+    }) ;  
 
 body.addEventListener("click",e =>{
     let clickedElm=e.target;
     if(!clickedElm.classList.contains("sidebarOpne") && !clickedElm.classList.contains("menu")){
         nav.classList.remove("active");
     }
-}) ;  
+});  
+
+
+
+mybutton = document.getElementById("myBtn");
+
+// When the user s  rolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+ $(document).ready(function(){
+    $(".heart").click(function(){
+      if($(".heart").hasClass("like")){
+        $(".heart").removeClass("like");
+        $(".heart").addClass("liked");
+        $(".heart").html('<i class="fa-solid fa-heart"></i>');
+      }
+      else{
+        $(".heart").removeClass("liked");
+        $(".heart").addClass("like");
+        $(".heart").html('<i class="fa-regular fa-heart"></i>');
+      }
+    });
+  });
+
+
+  function myFunctioninfo() {
+    var element = document.getElementById("moreinfo");
+    element.classList.add("mystyle");
+    var element = document.getElementById("infomore");
+    element.classList.add("mystyle1");
+ }
+  

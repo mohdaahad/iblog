@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[106],{114:function(e,t){document.getElementsByClassName("sticky-footer-form")[0].addEventListener("change",(function(){var e=document.getElementsByClassName("save-footer")[0];e&&e.classList.add("sticky","bottom-0")}))}},[[114,98]]]);
+//# sourceMappingURL=stickySaveFooter-0ecd8b65647432ce0d41.chunk.js.map

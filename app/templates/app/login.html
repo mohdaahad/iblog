@@ -3,31 +3,64 @@
 {% load static %}
 {% block body %}
 
-<div class="container">
-    <div class="row">
-        <div class="co-sm-10">
-            <h3 class="text-dark my-5">Login Page</h3>
-            <form action="" method="post"  novalidate>
+<div class="container p-0 containe ">
+    <div class="row justify-content-center mt-lg-5">
+        <div class="card col-lg-7 p-0 body2 " style=" border-bottom-right-radius:40px ;border-top-left-radius:40px;">
+            <div class="card-header p-3 bg-warning " style="border-top-left-radius:40px; "></div>
+            <div class="row">
+                <div class="col signup2">
+                    <a class=""  href="{% url 'signup' %}">Sign Up</a>
+                 </div>
+                <div class="col signup3">
+                    <a class=""  href="{% url 'login' %}">Sign In</a>
+                </div>
+           </div>
+           <h2 class="text-dark text-center mb-4 font-weight-bold"><b>Welcome to IBLOGS Community</b></h2>
+           <div class="d-grid gap-2 px-5">
+            <a style="margin-bottom: 2px; border-radius: 6px; background-color: #db3236; color: white !important; " class="btn " href=""> <i class='bx bxl-google text-center' style="color: white; font-size: 20px;" ></i> Google</a>
+            <a style="margin-bottom: 2px; border-radius: 6px; background-color: 	#4267B2;   color: white !important; " class="btn " href=""><i class='bx bxl-facebook' style="color: white; font-size: 20px;"></i> Facebook</a>
+            <a style="margin-bottom: 2px; border-radius: 6px; background-color: #0e76a8;  color: white !important;  " class="btn " href=""> <i class='bx bxl-linkedin'style="color: white; font-size: 20px;" ></i> LinkedIn</a>
+            <a style="margin-bottom: 2px; border-radius: 6px; background-color: #171515;  color: white !important; " class="btn  " href=""><i class='bx bxl-github'style="color: white; font-size: 20px;" ></i> GitHub</a>
+        </div>
+       <div class="mx-5 mt-3">
+        <h4 style="width: 100%; 
+        text-align: center; 
+        border-bottom: 1px solid #000; 
+        line-height: 0.1em;
+        margin: 10px 0 20px; "><span style="  background:#fff; 
+    padding:0 10px; ">or</span></h4>
+       </div>
+            <form action="" method="post" class="p-3" novalidate>
                 {% csrf_token %}
-                {% for fm in form %}
-                <div class="">
-                    {{fm.label_tag}} {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
-                {% endfor %} <br>
-                <input type="submit" value="Login" class="btn btn-success"  >
-               
-                    <a class="btn btn-primary mx-2"  href="{% url 'signup' %}">Signup</a>
-                  
                 {% if form.non_field_errors %}
-                  {% for error in form.non_field_errors %}
-                  <p class="alert alert-danger my-3 ">{{error}}</p>
-                  {% endfor %}
-                  {% endif %}
+                {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3 mx-4">{{error}}</p>
+                {% endfor %}
+                {% endif %}
+                {% for fm in form %}
+                <div class="px-4">
+                     {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
+                {% endfor %} 
+                <div class="form-check mx-4 mb-2">
+                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                    <label class="form-check-label" for="defaultCheck1">
+                    
+                    Remember me
+
+                    </label>
+                  </div>
+                  <div class="d-grid gap-2 px-4">
+                    <input style="margin-bottom: 22px; border-radius: 6px; " type="submit" value="Submit" class="btn btn-primary "  >
+    
+                </div>
+               
             </form>
-        <br>
+    
           
         </div>
     </div>
 </div>
+
 
 
 {% endblock body %}

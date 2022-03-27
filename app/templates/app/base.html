@@ -6,33 +6,58 @@
     <meta charset="utf-8">
     <link rel="icon" href="{% static 'app/img/blog1.svg' %}" type="image/gif" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- owl-carousel -->
-    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
-
-<link rel="stylesheet" href="{% static 'app/css/owl.theme.default.min.css' %}">
-<!-- <script src="jquery.min.js"></script> -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="{% static 'app/js/owl.carousel.min.js' %}"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+ 
     <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-     <!-- boxicons css -->
-     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+   <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}">
+   <!-- <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css"> -->
+   <link rel="stylesheet" href="{% static 'app/css/fontawesome.min.css' %}">
+   <!-- <link rel="stylesheet" href="{% static 'app/css/boxicons.min.css' %}"> -->
+   <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+  
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">  
+     <!-- <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel='stylesheet'> -->
+     <script src="https://cdn.tiny.cloud/1/dy59uod7imujfuk5ufy9m0nz253bhijiwrozxk1upcuh3u0e/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+     <script>
+      tinymce.init({
+        selector: 'textarea',
+        plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+        toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+      });
+    </script>
+    
+     
     <title>{% block title %}{% endblock title %}</title>
 
     
-    <!-- <style>style="background-color:rgb(245, 245, 245);"</style>
-   -->
-    <script>
-      $(document).ready(function(){
-  $(".owl-carousel").owlCarousel();
-});
-    </script>
+   
+    
+     {% if  request.user.is_authenticated  %}
+    <style>
+    body.dark{
+      --login-color:#000000;
+      --nav-color:#171717;
+      --side-nav:#242526;
+      --search-boder:#6495ED;
+      --color:#efefef;
+      --body-color:#000000;
+      --top-color:#000000;
+      --text-color:light;
+      --search-bar:#242526;
+      --border-color:#242527;
+      --card-bg:#171717;
+      --footer-bg:#242526;
+      --muted-color:#BDBDBD;
+  }
+  </style>
+  {% endif %}
   </head>
   <body  class="body">
+    <button onclick="topFunction()" id="myBtn" title="Go to top"><i class='bx bxs-caret-up-circle '></i></button>
     <nav class="fixed-top">
       <div class="nav-bar">
           <i class="bx bx-menu sidebarOpne"></i>
@@ -42,34 +67,30 @@
           <div class="menu">
               <div class="logo-toggle">
                   <span class="logo">
-                      <a href="#"><img style="width: 25px; margin-bottom: 8px; margin-left: 1rem; " src="{% static 'app/img/blog1.svg' %}" alt="">IBLOGS</a>
+                      <a href="#"><img style="width: 25px; margin-bottom: 8px; " src="{% static 'app/img/blog1.svg' %}" alt="">IBLOGS</a>
                   </span>
                   <i class="bx bx-x siderbarClose"></i>
               </div>
               <ul class="nav-links ">
-                  <!-- <li><a href="/">Home</a></li>
-                  <li><a href="/admin">ADMIN</a></li>
-                  <li><a href="/about">ABOUT US</a></li>
-                  <li><a href="/tags">Tags</a></li>
-                  <li><a href="/contacts">CONTACTS</a></li>    -->
-                  <li><a href="/"class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="https://img.icons8.com/color/25/000000/home.png"/>Home</a></li>
-                  <li><a href="/tags" class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/officel/25/000000/tags.png"/>Tags</a>
+                  
+                  <li><a href="/"class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="{% static 'app/img/home.png' %}"/>Home</a></li>
+                  <li><a href="/tags" class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/tags.png' %}"/>Tags</a>
                   </li>
-                  <li>    <a href="/about"class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/external-becris-lineal-color-becris/25/000000/external-blog-business-management-becris-lineal-color-becris.png"/>About</a>
+                  <li>    <a href="/about"class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/about.png' %}"/>About</a>
                   </li>
-                  <li>    <a href="/contacts"class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/color/25/000000/business-contact.png"/>Contact</a>
+                  <li>    <a href="/contacts"class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/contact.png' %}"/>Contact</a>
                   </li>
-                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/color/25/000000/like--v3.png"/>Sponsors</a>
+                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/heart.png' %}"/>Sponsors</a>
                   </li>
-                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/external-icongeek26-flat-icongeek26/25/000000/external-video-essentials-icongeek26-flat-icongeek26.png"/>Videos</a>
+                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/video.png' %}"/>Videos</a>
                   </li>
-                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/external-skrata-royyan-wijaya/25/000000/external-interaction-music-is-my-city-skrata-royyan-wijaya-14.png"/>Podcasts</a>
+                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/mick.png' %}"/>Podcasts</a>
                   </li>
-                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/bubbles/25/000000/list.png"/>Reading list</a>
+                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/list.png' %}"/>Reading list</a>
                   </li>
-                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/fluency/25/000000/light.png"/>FAQ</a>
+                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/fqr.png' %}"/>FAQ</a>
                   </li>
-                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/fluency/25/000000/similar-items.png"/>Listings</a>
+                  <li>    <a href=""class="text-left button mx-lg-3 mb-lg-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/items.png' %}"/>Listings</a>
                   </li>
               </ul>
           </div>
@@ -77,22 +98,24 @@
    
   
           <div class="darkLight-searchBox">
-            <div class="man">
+            <div class="man1">
               {% if not request.user.is_authenticated  %}
               <a class="btn btn-outline-danger" href="{% url 'login' %}"><i class='bx bxs-user px-1'></i>Sign In/Up</a>
               {% endif %}
             </div>
             <div class="man">
               {% if  request.user.is_authenticated  %}
-              <a class="btn btn-outline-primary" href="/admin"> Create Post </a>
-                    
+              <a class="btn btn-outline-primary" href="/createpost"> Create Post </a>     
               {% endif %}
            </div>
-
+           {% if  request.user.is_authenticated  %}
               <div class="dark-light">
+                <!-- <i class="fa-regular fa-moon moon"></i> -->
                   <i class="bx bx-moon moon"></i>
+                  <!-- <i class="fa-regular fa-sun-bright sun"></i> -->
                   <i class="bx bx-sun sun"></i>
               </div>
+              {% endif %}
               <div class="searchBox">
                  <div class="searchToggle">
                   <i class="bx bx-x cancel"></i>
@@ -100,52 +123,71 @@
                   </div>
   
                   <div class="search-field">
-                      <input type="text" placeholder="Search...">
-                      <i class="bx bx-search "></i>
+                    <form>
+                      <input type="text" name='search' id="search" placeholder="Search...">
+                     <button type="submit"> <i class="bx bx-search "></i></button>
+                    </form>
                   </div>
               
                    
                 </div>
-
-               <div  >
+                {% if  request.user.is_authenticated  %}
+               <div >
                 <li class="nav-item dropdown">
                   <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle "  style="width: 30px;margin-bottom: 20px;"  alt="">
                   </a>
                   <ul class="dropdown-menu  dropdown-menu-end" aria-labelledby="navbarDropdown">
                  
-                  <a class="dropdown-item " href="#">@aahadrahi</a>
+                  <a class="dropdown-item " href="/{{user.username}}">@{{ user.username}}</a>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item" href="#">Dashboard</a>
-                  <a class="dropdown-item" href="#">Create Post</a>
+                  <a class="dropdown-item" href="/createpost">Create Post</a>
                   <!-- <a class="dropdown-item" href="#">Reading list </a> -->
-                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="{% url 'setting' %}">Settings</a>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item" href="{% url 'singout' %}">Sing Out</a>
                  </ul>
               </li>
                </div> 
+               {% endif %}
           </div>
          </div>
   </nav>
     
 
-   <div class="" style="margin-top: 60px;">
+   <div class="" style="margin-top: 50px;">
     {% block body %}
     {% endblock %}  
    </div>
 
     {% include 'app/footer.html' %}
+    <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
     <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="{% static 'app/js/jquery.js' %}"></script>
+    <script src="{% static 'app/js/js.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
+    <!-- <script src="{% static 'app/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'app/js/popper.js' %}"></script> -->
+    {% if user.is_authenticated %}
+    <script type="text/javascript">
+    modeToggle.addEventListener("click",() =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode","light-mode");
+
+    }
+    else{
+        localStorage.setItem("mode","dark-mode");
+    }
+}) ;
+     </script>
+    {% endif %}
+    
   </body>
 
 </html>

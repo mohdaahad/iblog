@@ -6,7 +6,7 @@
 
 <div class="containe px-md-2" >    
     <div class="row">
-<div class="col-md-3 d-md-block  d-none">
+<div class="col-md-3 d-md-block p-0 d-none">
     {% if not request.user.is_authenticated  %}
     <div class="card body1 mr-1 m-md-3" >
         <h5 class="p-3 pb-1">
@@ -18,16 +18,16 @@
     </div>
     {% endif %}
     <div class="card body hover mt-2" >
-    <a href="/"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="https://img.icons8.com/color/25/000000/home.png"/>Home</a>
-    <a href="/tags" class="text-left button mx-3 mb-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/officel/25/000000/tags.png"/>Tags</a>
-    <a href="/about"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/external-becris-lineal-color-becris/25/000000/external-blog-business-management-becris-lineal-color-becris.png"/>About</a>
-    <a href="/contacts"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/color/25/000000/business-contact.png"/>Contact</a>
-    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/color/25/000000/like--v3.png"/>Sponsors</a>
-    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/external-icongeek26-flat-icongeek26/25/000000/external-video-essentials-icongeek26-flat-icongeek26.png"/>Videos</a>
-    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/external-skrata-royyan-wijaya/25/000000/external-interaction-music-is-my-city-skrata-royyan-wijaya-14.png"/>Podcasts</a>
-    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/bubbles/25/000000/list.png"/>Reading list</a>
-    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/fluency/25/000000/light.png"/>FAQ</a>
-    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="https://img.icons8.com/fluency/25/000000/similar-items.png"/>Listings</a>
+    <a href="/"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="{% static 'app/img/home.png' %}"/>Home</a>
+    <a href="/tags" class="text-left button mx-3 mb-2 py-2  " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/tags.png' %}"/>Tags</a>
+    <a href="/about"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/about.png' %}"/>About</a>
+    <a href="/contacts"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/contact.png' %}"/>Contact</a>
+    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/heart.png' %}"/>Sponsors</a>
+    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/video.png' %}"/>Videos</a>
+    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/mick.png' %}"/>Podcasts</a>
+    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/list.png' %}"/>Reading list</a>
+    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/fqr.png' %}"/>FAQ</a>
+    <a href=""class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;"><img class="px-2" src="{% static 'app/img/items.png' %}"/>Listings</a>
    
 
     </div>
@@ -35,27 +35,60 @@
 </div>
 <div class="col-md-6 ">
     <div class="row ">
-        <h4 class="mt-3 mb-2 fw-bold">POST</h4>
-       <div class="d-flex justify-content-center">
+       <div class="d-flex p-0  justify-content-center">
         <div class="col">
-            {% for p in posts %}
+            <!-- <h4 class="mt-3 mb-2 fw-bold">POST</h4> -->
+            
+          <div class="toplatest">
+            <div id="myDIV">
+                <button onclick="myFunction1()" class="btnn active">Relevant</button>
+                <button onclick="myFunction2()" class="btnn ">Latest</button>
+                <button onclick="myFunction3()" class="btnn">Top</button>
+                </div>
+                <div id="mydiv">
+                    <button  class="btnn activ">Week</button>
+                    <button  class="btnn ">Month</button>
+                    <button  class="btnn">Year</button>
+                    <button  class="btnn">Infinity</button>
+                    </div>
+
+          </div>
+          {% if post_relevant|length < 1 %}
+          <p>No search results</p>
+          Your search <b>{{search}}</b> - did not match any documents 
+          <br> Suggestions: </br>
+          <ul>
+              <li>Try different keywords.</li>
+          </ul>
+          
+          {% endif %}
+           <div id="relevant">
+            {% for p in post_relevant %}
             <div  class="cardbg card tags mb-2 " >
                <div class="card-body">
              
-                <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
-                    <b class="">Aahad Rahi</b>
-                    <small class="float-end mx-5 ">{{p.0.add_date}}</small>
+                <div class="row"> <span class=""> 
+                    <a href="/post/{{p.user_id}}" style="text-decoration: none;"><img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+                        <b class=""> {{p.user_id}}</b></a>
+                    <small class="float-end mx-5 ">{{p.created_date}}</small>
                 </div>
               
 
                    <div class="card-text px-5 ">
                    
-                      <a class="nav-link link-dark p-0"  href="/app/{{p.0.url}}"><h3 class="m-0 title py-3"> {{p.0.title}}</h3></a>
-                      <pre><a href="/category/{{p.0.cat.url}} " style="text-decoration: none; color: black;"><span class="text-{{p.0.cat.color}}">#</span>{{p.0.cat.title}} </span></a></pre>                      <div class="row">
+                      <a class="nav-link link-dark  p-0"  href="/app/{{p.id}}"><h3 class="m-0 their title py-3"> {{p.title}}</h3></a>
+                      <span class="d-flex">
+                      {% for area in p.category.all|slice:":3" %}
+                      <pre><a href="/category/{{area.url}} " style="text-decoration: none; color: black;"><span class="text-{{area.color}}">#</span><span>{{ area }} </span></a></pre>   
+                      {% endfor %} 
+                      </span>   
+                      <div class="row">
                         
-                        <div class="col-auto respons p-0"><span class=""><a class="nav-link link-dark p-0"  href="/app/{{p.0.url}}"> <i  style="font-size:24px" class="fa ">&#xf087;</i> {{p.1.count}} reactions</a></span></div>
-                        <div class="col-auto respons p-0"><span class=""><a class="nav-link    link-dark p-0"  href="/app/{{p.0.url}}"><i style="font-size:24px" class="fa ">&#xf0e5;</i>  {{p.2.count}} Comments</a></span></div>
+                        <div class="col-auto respons p-0"><span class=""><a class="nav-link link-dark p-0"  href="/app/{{p.url}}">  <i class="fa-regular fa-thumbs-up" style="font-size: 24px; margin-right: 5px;" ></i>{{ p.likes.count  }} reactions</a></span></div>
+                        <div class="col-auto respons p-0"><span class=""><a class="nav-link    link-dark p-0"  href="/app/{{p.url}}"> <i class="fa-regular fa-comment" style="font-size:24px"></i> {{p.comment.count}} Comments</a></span></div>
                           <div class="col p-0   "> <button class="ms-2 btrespons btn btn-secondary m-0 float-end">Save</button></div>
+                        
+                        
 
                       </div>
                       
@@ -65,6 +98,79 @@
                </div>
             </div>
             {% endfor %}
+           </div>
+           <div id="latest">
+            {% for p in posts %}
+            <div  class="cardbg card tags mb-2 " >
+               <div class="card-body">
+             
+                <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+                    <b class=""> {{p.0.user_id}}</b>
+                    <small class="float-end mx-5 ">{{p.0.created_date}}</small>
+                </div>
+              
+
+                   <div class="card-text px-5 ">
+                   
+                      <a class="nav-link link-dark  p-0"  href="/app/{{p.0.id}}"><h3 class="m-0 their title py-3"> {{p.0.title}}</h3></a>
+                      <span class="d-flex">
+                      {% for area in p.0.category.all|slice:":3" %}
+                      <pre><a href="/category/{{area.url}} " style="text-decoration: none; color: black;"><span class="text-{{area.color}}">#</span><span>{{ area }} </span></a></pre>   
+                      {% endfor %} 
+                      </span>   
+                      <div class="row">
+                        
+                        <div class="col-auto respons p-0"><span class=""><a class="nav-link link-dark p-0"  href="/app/{{p.0.url}}"> <i class="fa-regular fa-thumbs-up" style="font-size: 24px; margin-right: 5px;" ></i>{{ p.0.likes.count }} reactions</a></span></div>
+                        <div class="col-auto respons p-0"><span class=""><a class="nav-link    link-dark p-0"  href="/app/{{p.0.url}}"> <i class="fa-regular fa-comment" style="font-size:24px"></i> {{p.0.comment.count}} Comments</a></span></div>
+                          <div class="col p-0   "> <button class="ms-2 btrespons btn btn-secondary m-0 float-end">Save</button></div>
+                        
+                        
+
+                      </div>
+                      
+                   
+                  
+                   </div>
+               </div>
+            </div>
+            {% endfor %}
+           </div>
+           <div id="top">
+            {% for p in post_top %}
+            <div  class="cardbg card tags mb-2 " >
+               <div class="card-body">
+             
+                <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+                    <b class=""> {{p.user_id}}</b>
+                    <small class="float-end mx-5 ">{{p.created_date}}</small>
+                </div>
+              
+
+                   <div class="card-text px-5 ">
+                   
+                      <a class="nav-link link-dark  p-0"  href="/app/{{p.id}}"><h3 class="m-0 their title py-3"> {{p.title}}</h3></a>
+                      <span class="d-flex">
+                      {% for area in p.category.all|slice:":3" %}
+                      <pre><a href="/category/{{area.url}} " style="text-decoration: none; color: black;"><span class="text-{{area.color}}">#</span><span>{{ area }} </span></a></pre>   
+                      {% endfor %} 
+                      </span>   
+                      <div class="row">
+                        
+                        <div class="col-auto respons p-0"><span class=""><a class="nav-link link-dark p-0"  href="/app/{{p.url}}"><i class="fa-regular fa-thumbs-up" style="font-size: 24px; margin-right: 5px;"></i>{{ p.likes.count }} reactions</a></span></div>
+                        <div class="col-auto respons p-0"><span class=""><a class="nav-link    link-dark p-0"  href="/app/{{p.url}}"> <i class="fa-regular fa-comment" style="font-size:24px"></i> {{p.comment.count}} Comments</a></span></div>
+                          <div class="col p-0   "> <button class="ms-2 btrespons btn btn-secondary m-0 float-end">Save</button></div>
+                        
+                        
+
+                      </div>
+                      
+                   
+                  
+                   </div>
+               </div>
+            </div>
+            {% endfor %}    
+           </div>
              </div>
         </div>
         
@@ -75,6 +181,5 @@
 </div>
     </div>
 </div>
-
-<script src="{% static 'app/js/js.js' %}"></script>
+<script src="{% static 'app/js/home.js' %}"></script>
 {% endblock body %}  

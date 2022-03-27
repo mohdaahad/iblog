@@ -1,0 +1,28 @@
+{% extends "app/base.html" %}
+{% block title %} settings-IBLOG  Community 📝📝{% endblock title %} 
+{% load static %}
+{% block  body %}
+<div class="setting ">
+    <div class="contener_setting ">
+        <h3>Settings for <a class="user_name" href="/{{user}}"> @{{user}}</a></h3>
+    <div class="row">
+        <div class="col-md-3 ">
+            <div class="card cardcolor hover mt-2" >
+                <a href="/"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="{% static 'app/img/s.png' %}"/>Profile</a>
+                <a href="/"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="{% static 'app/img/noti.png' %}"/>Notifications</a>
+                <a href="/"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="{% static 'app/img/tree.png' %}"/>Account</a>
+                <a href="/"class="text-left button mx-3 mb-2 py-2 " style=" text-decoration:none;" ><img class="px-2" src="{% static 'app/img/bill.png' %}"/>Billing</a>
+            
+               
+            
+                </div>
+        </div>
+        <div class="col-md-9 col">
+            <div class="card cardbg mt-2 p-4"> 
+                <h4>User</h4>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

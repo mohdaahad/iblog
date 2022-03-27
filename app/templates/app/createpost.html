@@ -1,0 +1,55 @@
+{% extends 'app/base.html' %}
+{% block title %}IBLOG  Community 📝📝{% endblock title %}
+{% load static %}
+{% block body %}
+
+<style>
+    .nav-bar .darkLight-searchBox{
+    display: none ;
+}
+</style>
+<div class="container  ">
+    <div class="row containe">
+        <div class="col-md-8">
+            <div class=" card body2  p-3 ">
+                <form  method="POST" enctype="multipart/form-data" novalidate >
+                    {% csrf_token %}
+                    {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger ">{{error}}</p>
+                    {% endfor %}
+                    {% endif %}
+                    {% for fm in form %}
+                    <div class="">
+                         {{fm}} <small class="text-warning">{{fm.errors|striptags}}</small> </div>
+                    {% endfor %} 
+                    
+                      
+                      <div class="d-grid gap-2 m-2 ">
+                        <input style="margin-bottom: 22px; border-radius: 6px; " type="submit" value="Publish" class="btn btn-primary "  >
+        
+                    </div>
+                   
+                </form>
+                   
+                   
+            </div>
+        </div>
+        <div class="col-md-4">
+            
+            <h6>
+                Writing a Great Post Title
+            </h6>
+            <ul>
+                <li>Think of your post title as a super short (but compelling!) description — like an overview of the actual post in one short sentence.</li>
+                <li>Use keywords where appropriate to help ensure people can find your post by search.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock body %}

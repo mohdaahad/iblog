@@ -4,16 +4,21 @@ from app import  views
 urlpatterns = [
      path('tinymce/', include('tinymce.urls')),
      path('',views.home ,name='home'),
-     path('app/<slug:url>',views.post, name='post_detail'),
-     path('login/', views.user_login, name='login'),
+     path('app/<int:id>',views.post, name='post_detail'),
+     path('signin', views.user_login, name='login'),
      path('signup/', views.signup, name='signup'),
      path('report-about/', views.report, name='report'),
      path('contacts/', views.contacts, name='contacts'),
      path('logout/', views.user_logout, name='logout'),
      path('category/<slug:url>',views.category),
      path('about/',views.about ,name='about'),
+     path('likepost/',views.likepost ,name='likepost'),
      path('tags/',views.tags ,name='tags'),
+     path('createpost/',views.createpost ,name='createpost'),
      path('singout_confirm/',views.signout ,name='singout'),
+     path('<slug:username>/',views.userprofile ,name='userprofile'),
+     path('post/<slug:user_id>/',views.postuserprofile ,name='postuserprofile'),
+     path('/setting',views.editprofile ,name='setting'),
 
 
  

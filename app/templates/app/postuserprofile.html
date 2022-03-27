@@ -1,0 +1,109 @@
+{% extends 'app/base.html' %}
+{% block title %}{{user.username}} - IBLOG Community 📝📝{% endblock title %}
+{% load static %}
+{% block body %}
+
+<div class="profile-backgrond ">
+</div>
+<div class="col">
+    <div class="cardbg card  profile-card">
+    <div class=" profile-image" >
+      <img src="{% static 'app/img/tint1.jpg' %}"  alt="">
+     
+       </div>
+       <div class="button1">
+        <a class="btn btn-primary" href="#" role="button">Follow</a>
+             </div>
+     <div class="username">
+       <h3>{{user.username}}</h3>
+       <div class="bio">
+        <p>user_bio</p>
+        <div class="join">
+            <p><i class="fa-solid fa-location-dot"></i> loction</p>
+            <p><i class="fa-solid fa-cake-candles"></i> Joined on  {{user.date_joined}}</p>
+            <a href=""><i class="fa-solid fa-envelope"></i> {{user.email}}</a>
+            <a href=""><i class="fa-solid fa-arrow-up-right-from-square"></i>web site </a>
+        </div>
+       </div>
+      </div>
+      <hr>
+     <div class="profile_data">
+      <div class="profile_Education">
+        <p class="muted">Education</p>
+        <p>BCA</p>
+    </div>
+    <div class="profile_work">
+      <p class="muted">Work</p>
+    <p>CSS </p>
+  </div>
+     </div>
+     <button type="button" onclick="myFunctioninfo()" id="moreinfo" class="btn btn-outline-secondary m-2">More info about @{{user.username}}</button>
+    </div>
+</div>
+<div class="profile-post">
+  <div class="row post33">
+    <div  id="infomore" class="col-md-4 col px-md-2 px-0">
+    <div class="card cardbg  mb-2 p-2">
+      <h6 class="m-0">Currently learning</h6>
+        <hr >
+       <p class="m-0">Django</p>
+    </div>
+    <div class="card cardbg mb-2 p-2">
+      <h6 class="m-0">Skills/Languages</h6>
+        <hr >
+       <p class="m-0">Django,HTML, CSS </p>
+    </div>
+    <div class="card cardbg mb-2 p-2">
+      <h6 class="m-0">Available for</h6>
+        <hr >
+       <p class="m-0">Hit me up if you have any questions or want to have a good talk!</p>
+    </div>
+    <div class="card cardbg mb-2 p-2">
+       <p class=""><i class="fa-regular fa-file-lines"></i>4 posts published</p>
+       <p class=""><i class="fa-regular fa-comment"></i>2 comment written</p>
+       <p class=""><i class="fa-regular fa-hashtag"></i>3 tags followed</p>
+    </div>
+    
+    
+  </div>
+    <div class="col-md-8 px-md-2 px-0">
+      <div class="col">
+        {% for p in post %}
+        <div  class="cardbg card tags mb-2 " >
+           <div class="card-body">
+         
+            <div class="row"> <span class=""> <img src="{% static 'app/img/tint1.jpg' %}" class="rounded-circle " style="width: 40px;" alt="">
+                <b class=""> {{p.user_id}}</b>
+                <small class="float-end mx-5 ">{{p.created_date}}</small>
+            </div>
+          
+
+               <div class="card-text px-5 ">
+               
+                  <a class="nav-link link-dark  p-0"  href="/app/{{p.id}}"><h3 class="m-0 their title py-3"> {{p.title}}</h3></a>
+                  <span class="d-flex">
+                  {% for area in p.category.all|slice:":3" %}
+                  <pre><a href="/category/{{area.url}} " style="text-decoration: none; color: black;"><span class="text-{{area.color}}">#</span><span>{{ area }} </span></a></pre>   
+                  {% endfor %} 
+                  </span>   
+                  <div class="row">
+                    
+                    <div class="col-auto respons p-0"><span class=""><a class="nav-link link-dark p-0"  href="/app/{{p.url}}"><i class="fa-regular fa-thumbs-up" style="font-size: 24px; margin-right: 5px;"></i>{{ p.likes.count }} reactions</a></span></div>
+                    <div class="col-auto respons p-0"><span class=""><a class="nav-link    link-dark p-0"  href="/app/{{p.url}}"> <i class="fa-regular fa-comment" style="font-size:24px"></i> {{p.comment.count}} Comments</a></span></div>
+                      <div class="col p-0   "> <button class="ms-2 btrespons btn btn-secondary m-0 float-end">Save</button></div>
+                    
+                    
+
+                  </div>
+                  
+               
+              
+               </div>
+           </div>
+        </div>
+        {% endfor %}    
+       </div> 
+    </div>
+  </div>
+</div>
+{% endblock body %}
