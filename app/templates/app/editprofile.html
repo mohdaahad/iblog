@@ -20,8 +20,46 @@
         <div class="col-md-9 col">
             <div class="card cardbg mt-2 p-4"> 
                 <h4>User</h4>
+                {% if user_form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    <div id="form_errors">
+                        {% for key, value in user_form.errors.items %}
+                        
+                            <strong>{{key}}{{ value }}</strong>
+                        {% endfor %}
+                    </div>
+                 
+                </div>
+            {% endif %}
+            <div class="form-content">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="">
+                            <div class="form-group">
+                                <label class="small mb-2">Name</label>
+                                    {{ user_form.first_name }}
+                                <label class="small mb-2">Email</label>
+                                    {{ user_form.email }}
+                                <label class="small mb-2">Username</label>
+                                    {{ user_form.username }}
+                           
+                                    <img class="rounded-circle account-img" src="{{ url.user_profile }} " >    
+                                    {{ profile_form.user_profile }}  
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">Save Changes</button>      
+                                     </div>
+                                    
+                           
             </div>
-        </div>
+            <div>
+               
+
+           </div>
+   
+                       </div>
+                 
+                </form>
+
     </div>
     </div>
 </div>

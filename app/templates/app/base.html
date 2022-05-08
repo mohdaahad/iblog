@@ -139,12 +139,12 @@
                   </a>
                   <ul class="dropdown-menu  dropdown-menu-end" aria-labelledby="navbarDropdown">
                  
-                  <a class="dropdown-item " href="/{{user.username}}">@{{ user.username}}</a>
+                  <a class="dropdown-item " href="profile/{{user.username}}">@{{ user.username}}</a>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item" href="#">Dashboard</a>
                   <a class="dropdown-item" href="/createpost">Create Post</a>
                   <!-- <a class="dropdown-item" href="#">Reading list </a> -->
-                  <a class="dropdown-item" href="{% url 'setting' %}">Settings</a>
+                  <a class="dropdown-item" href="{% url 'setting_profile' %}">Settings</a>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item" href="{% url 'singout' %}">Sing Out</a>
                  </ul>

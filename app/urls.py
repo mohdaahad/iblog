@@ -16,10 +16,8 @@ urlpatterns = [
      path('tags/',views.tags ,name='tags'),
      path('createpost/',views.createpost ,name='createpost'),
      path('singout_confirm/',views.signout ,name='singout'),
-     path('<slug:username>/',views.userprofile ,name='userprofile'),
-     path('post/<slug:user_id>/',views.postuserprofile ,name='postuserprofile'),
-     path('/setting',views.editprofile ,name='setting'),
-
-
+     path('profile/<slug:username>/',views.userprofile ,name='userprofile'),
+     path('post/<slug:user_id>',views.postuserprofile ,name='postuserprofile'),
+     path('setting_profile/',views.editprofile ,name='setting_profile'),
  
 ]

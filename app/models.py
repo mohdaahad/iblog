@@ -1,5 +1,6 @@
 
 from re import T
+from PIL import Image
 import black
 from django.db import models
 from django.utils.html import format_html
@@ -126,14 +127,19 @@ class Comment(models.Model):
 
 class User_Additional_detail(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    # save=models.ForeignKey(Post)
-    # User_type=models.(Category)
-    # followed_user=models.ForeignKey(User)
-    # followed_cat=models.ManyToManyField(default=0)
-    # author = models.ForeignKey(User)
+    user_profile=models.ImageField(upload_to='app/userprofile/')
+     
 
-    # class Meta:
-    #     ordering = ['id']
+# resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.user_profile.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.user_profile.path)
     def __str__(self):
-        return self.id
+        return self.user_profile.url
    
