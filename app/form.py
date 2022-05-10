@@ -35,7 +35,7 @@ class PostForm(forms.ModelForm):
         fields = ('image',"title",'category','content','user_id')  
         widgets ={
           'title':forms.TextInput(attrs={'class':'form-control1','placeholder': 'New post title here...','cols': 30, 'rows': 1 , }),
-          'content':forms.Textarea(attrs={'class':'form-control1','placeholder': 'Write your post content here...','cols': 30, 'rows': 1 , 'style': 'font-size: 20px;',}),
+          'content':forms.Textarea(attrs={'class':'form-control1','placeholder': 'Write your post content here...','cols': 27, 'rows': 4 , 'style': 'font-size: 20px;',}),
           'user_id':forms.HiddenInput()
           }
         labels={'title':'','image' :'','url' :'','category' :'','content' :'',}

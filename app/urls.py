@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path,include
 from app import  views
 urlpatterns = [
-     path('tinymce/', include('tinymce.urls')),
+    
      path('',views.home ,name='home'),
      path('app/<int:id>',views.post, name='post_detail'),
      path('signin', views.user_login, name='login'),

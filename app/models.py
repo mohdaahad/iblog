@@ -6,7 +6,7 @@ from django.db import models
 from django.utils.html import format_html
 import uuid
 from PIL import Image
-from tinymce.models import HTMLField
+
 from io import BytesIO
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -62,8 +62,8 @@ class Post(models.Model):
     user_id=models.ForeignKey(User, on_delete=models.CASCADE,related_name='post', )
     # post_id=models.AutoField(primary_key=True)
     title=models.CharField(max_length=200)
-    content = HTMLField()
-    category=models.ManyToManyField(Category )
+    content = models.TextField(max_length=1000)
+    category=models.ManyToManyField(Category)
     image=models.ImageField(upload_to='app/Post/')
     created_date =models.DateField(auto_now_add=True,null=True)
     updated_date =models.DateField(auto_now=True)
