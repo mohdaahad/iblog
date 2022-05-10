@@ -5,11 +5,12 @@ from turtle import title
 from black import json
 from django.http import JsonResponse
 from django.urls import reverse
+from .models import User_Additional_detail 
 
 from pydoc import text
 from django.shortcuts import redirect, render
 from .models import Category, Post,activity
-from .form import SignUpForm, loginForm, CommentForm
+from .form import SignUpForm, loginForm, CommentForm, User_Additional_detailForm,UpdateUserForm
 from django.contrib.auth import authenticate,login,logout
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
@@ -211,7 +212,7 @@ def createpost(request):
     return render(request, 'app/createpost.html' ,{'form':form })
 
 def userprofile(request,username):
-    user=User.objects.get(username=username)
+    user=User.objects.get(username=request.user)
     cats=Post.objects.all()
     clicked_cat=cats.filter(user_id=user)
     # print(clicked_cat)
@@ -225,6 +226,23 @@ def postuserprofile(request,user_id):
     return render(request,"app/postuserprofile.html",{'user':user , "post":clicked_cat})
 
 def editprofile(request):
-    user=get_object_or_404(User, username=request.user)
-    # print("************************88",user)
-    return render(request,'app/editprofile.html',{"user":user})    
+    uer=get_object_or_404(User, username=request.user)
+    # print(uer,'*****************************************')
+    a_d = uer
+
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=uer)
+        profile_form = User_Additional_detailForm(request.POST, request.FILES, instance=a_d)
+        
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='setting_profile')
+    else:
+        user_form =SignUpForm(instance=uer)
+        profile_form =  User_Additional_detailForm(instance=a_d)
+    
+    return render(request, 'app/editprofile.html', {"user":uer,'user_form': user_form, 'profile_form': profile_form,'url':a_d})
+
+ 

@@ -65,9 +65,10 @@
    
 }
 .button:hover{
-    background-color: #312E81BF;
-    color: #A5b4fc !important;
+    background-color: #a8a5ecbf;
+    color: #2b3677 !important;
     border-radius:6px ;
+    font-size: 18px;
 
     
 }
@@ -260,6 +261,7 @@ cursor: pointer;
 transition: all o.3s ease;
 
 }
+
 .dark-light i.sun{
 opacity: 0 ;
 pointer-events: none;
@@ -738,6 +740,11 @@ option{
     padding: 4px 4px !important;
 
 }
+.card-body .row .rounded-circle{
+    width: 33px !important;
+    margin-left: 10px;
+    margin-right: 3px;
+}
     .profile-card .mystyle{
         display: none;
     }
@@ -816,6 +823,7 @@ option{
 }
 .contener_setting .cardcolor{
     background-color: var(--body-color);
+    border: none !important;
 }
  .cardcolor a{
    color: var(--color) !important;

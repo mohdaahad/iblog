@@ -1,11 +1,12 @@
 
 from re import T
+from PIL import Image
 import black
 from django.db import models
 from django.utils.html import format_html
 import uuid
 from PIL import Image
-from tinymce.models import HTMLField
+
 from io import BytesIO
 from django.core.files import File
 from django.core.files.base import ContentFile
@@ -61,8 +62,8 @@ class Post(models.Model):
     user_id=models.ForeignKey(User, on_delete=models.CASCADE,related_name='post', )
     # post_id=models.AutoField(primary_key=True)
     title=models.CharField(max_length=200)
-    content = HTMLField()
-    category=models.ManyToManyField(Category )
+    content = models.TextField(max_length=1000)
+    category=models.ManyToManyField(Category)
     image=models.ImageField(upload_to='app/Post/')
     created_date =models.DateField(auto_now_add=True,null=True)
     updated_date =models.DateField(auto_now=True)
@@ -126,14 +127,19 @@ class Comment(models.Model):
 
 class User_Additional_detail(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    # save=models.ForeignKey(Post)
-    # User_type=models.(Category)
-    # followed_user=models.ForeignKey(User)
-    # followed_cat=models.ManyToManyField(default=0)
-    # author = models.ForeignKey(User)
+    user_profile=models.ImageField(upload_to='app/userprofile/')
+     
 
-    # class Meta:
-    #     ordering = ['id']
+# resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.user_profile.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.user_profile.path)
     def __str__(self):
-        return self.id
+        return self.user_profile.url
    

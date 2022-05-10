@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path,include
 from app import  views
 urlpatterns = [
-     path('tinymce/', include('tinymce.urls')),
+    
      path('',views.home ,name='home'),
      path('app/<int:id>',views.post, name='post_detail'),
      path('signin', views.user_login, name='login'),
@@ -16,10 +16,8 @@ urlpatterns = [
      path('tags/',views.tags ,name='tags'),
      path('createpost/',views.createpost ,name='createpost'),
      path('singout_confirm/',views.signout ,name='singout'),
-     path('<slug:username>/',views.userprofile ,name='userprofile'),
-     path('post/<slug:user_id>/',views.postuserprofile ,name='postuserprofile'),
-     path('/setting',views.editprofile ,name='setting'),
-
-
+     path('profile/<slug:username>/',views.userprofile ,name='userprofile'),
+     path('post/<slug:user_id>',views.postuserprofile ,name='postuserprofile'),
+     path('setting_profile/',views.editprofile ,name='setting_profile'),
  
 ]

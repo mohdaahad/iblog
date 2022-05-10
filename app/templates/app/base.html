@@ -18,17 +18,7 @@
   
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">  
      <!-- <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel='stylesheet'> -->
-     <script src="https://cdn.tiny.cloud/1/dy59uod7imujfuk5ufy9m0nz253bhijiwrozxk1upcuh3u0e/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-     <script>
-      tinymce.init({
-        selector: 'textarea',
-        plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
-        toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table',
-        toolbar_mode: 'floating',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-      });
-    </script>
+    
     
      
     <title>{% block title %}{% endblock title %}</title>
@@ -139,12 +129,12 @@
                   </a>
                   <ul class="dropdown-menu  dropdown-menu-end" aria-labelledby="navbarDropdown">
                  
-                  <a class="dropdown-item " href="/{{user.username}}">@{{ user.username}}</a>
+                  <a class="dropdown-item " href="profile/{{user.username}}">@{{ user.username}}</a>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item" href="#">Dashboard</a>
                   <a class="dropdown-item" href="/createpost">Create Post</a>
                   <!-- <a class="dropdown-item" href="#">Reading list </a> -->
-                  <a class="dropdown-item" href="{% url 'setting' %}">Settings</a>
+                  <a class="dropdown-item" href="{% url 'setting_profile' %}">Settings</a>
                   <li><hr class="dropdown-divider"></li>
                   <a class="dropdown-item" href="{% url 'singout' %}">Sing Out</a>
                  </ul>

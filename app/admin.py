@@ -11,9 +11,9 @@ def in_category(things, num):
 # Register your models here.y
 # @admin.register(activity)
 # @admin.register(Comment)
-# class User_Additional_detailAdmin(admin.ModelAdmin):
-#     list_display=('user_id',  'followed_cat', 'followed_user')
-#     search_fields = ('followed_user', 'followed_cat')
+class User_Additional_detailAdmin(admin.ModelAdmin):
+    list_display=('user_profile', 'user_id',  )
+
 class ActivityAdmin(admin.ModelAdmin):
     list_display=( 'post', 'created_date')
     list_filter = ( 'created_date',)
@@ -52,5 +52,5 @@ admin.site.register(Category,CategoryAdmin)
 admin.site.register(Comment,CommentAdmin)
 admin.site.register(activity,ActivityAdmin)
 admin.site.register(Post,PostAdmin)
-# admin.site.register(activity,ActivityAdmin)
+admin.site.register(User_Additional_detail,User_Additional_detailAdmin)
 
