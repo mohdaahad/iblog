@@ -1,22 +1,12 @@
-
-import email
-from re import search
-from turtle import title
-from black import json
 from django.http import JsonResponse
-from django.urls import reverse
-from .models import User_Additional_detail 
-
-from pydoc import text
 from django.shortcuts import redirect, render
-from .models import Category, Post,activity
+from .models import Category, Post
 from .form import SignUpForm, loginForm, CommentForm, User_Additional_detailForm,UpdateUserForm
 from django.contrib.auth import authenticate,login,logout
 from django.http.response import HttpResponseRedirect
 from django.contrib import messages
-from django.core.paginator import Paginator
 from django.contrib.auth.models import User
-from django.db.models import Max, Count
+from django.db.models import  Count
 from .form import CommentForm,PostForm
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
